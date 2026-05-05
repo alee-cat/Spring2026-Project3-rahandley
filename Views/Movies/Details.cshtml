@@ -1,0 +1,64 @@
+@using Spring2026_Project3_rahandley.Models.ViewModels
+@model MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Movie.Title</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Genre</dt>
+        <dd class="col-sm-10">@Model.Movie.Genre</dd>
+
+        <dt class="col-sm-2">Year</dt>
+        <dd class="col-sm-10">@Model.Movie.Year</dd>
+
+        <dt class="col-sm-2">IMDB</dt>
+        <dd class="col-sm-10">
+            <a href="@Model.Movie.ImdbLink" target="_blank">View</a>
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Movie.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<hr />
+
+<h3>Actors</h3>
+<ul>
+    @foreach (var actor in Model.Actors)
+    {
+        <li>@actor.Name</li>
+    }
+</ul>
+
+<hr />
+
+<h3>AI Reviews</h3>
+
+<h4>Average Sentiment: @Model.AverageSentiment</h4>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Review</th>
+        <th>Sentiment</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Reviews.Count; i++)
+    {
+        <tr>
+            <td>@Model.Reviews[i]</td>
+            <td>@Model.Sentiments[i]</td>
+        </tr>
+    }
+    </tbody>
+</table>
